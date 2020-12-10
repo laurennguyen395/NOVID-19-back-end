@@ -5,12 +5,13 @@ const login = (req, res) => {
 }
 
 const register = (req, res) => {
-  const { name, email, password } = req.body
-  
+  const { firstName, lastName, email, password, currentState } = req.body
+
   // validate the POSTed data - making sure we have a name, an email, a pw
-  if (!name || !email || !password) {
+  if (!firstName || !lastName || !email || !password || !currentState) {
     return res.json({ message: 'Please enter a name, an email, and a password' })
   }
+
 
   // make sure the user doesn't already exist
   db.user.findOne({ where: { email } })
@@ -21,13 +22,26 @@ const register = (req, res) => {
 
       // if the user doesnt exist, create and save a user to the DB
       db.user.create({
-        name,
-        email,
-        password
+        firstName: req.body.firstName,
+        lastName: req.body.lastName,
+        email: req.body.email,
+        password: req.body.password,
+        currentState: req.body.currentState,
       }).then(newUser => {
         console.log('New user created!')
         res.json(newUser)
       })
+    })
+}
+
+const findUser = (req, res) => {
+  db.user.findOne({
+    where: {
+      id: req.user.id
+    }
+  })
+    .then(foundUser => {
+      res.json(foundUser)
     })
 }
 
@@ -42,5 +56,6 @@ const logout = (req, res) => {
 module.exports = {
   login,
   register,
+  findUser,
   logout
 }

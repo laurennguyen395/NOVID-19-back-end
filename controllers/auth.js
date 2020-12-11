@@ -9,7 +9,7 @@ const register = (req, res) => {
 
   // validate the POSTed data - making sure we have a name, an email, a pw
   if (!firstName || !lastName || !email || !password || !currentState) {
-    return res.json({ message: 'Please enter a name, an email, and a password' })
+    return res.json({ message: 'Please enter a name, an email, a password, and the current state you live in.' })
   }
 
 

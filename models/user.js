@@ -1,7 +1,10 @@
 'use strict'
+const bcrypt = require('bcrypt')
+
+
 const {
   Model
-} = require('sequelize');
+} = require('sequelize')
 module.exports = (sequelize, DataTypes) => {
   class user extends Model {
     /**
@@ -13,7 +16,16 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
       models.user.hasMany(models.user_state)
         }
-  };
+        validPassword(passwordTyped) {
+          return bcrypt.compareSync(passwordTyped, this.password);
+        }
+            // remove the password before serializing
+    toJSON() {
+      let userData = this.get();
+      delete userData.password;
+      return userData;
+    }
+  }
   user.init({
     firstName: DataTypes.STRING,
     lastName: DataTypes.STRING,
@@ -23,6 +35,14 @@ module.exports = (sequelize, DataTypes) => {
   }, {
     sequelize,
     modelName: 'user',
-  });
+  })
+  user.beforeCreate((pendingUser, options) => {
+    if (pendingUser && pendingUser.password) {
+      // hash the password
+      let hash = bcrypt.hashSync(pendingUser.password, 12);
+      // store the hash as the user's password
+      pendingUser.password = hash;
+    }
+  })
   return user
-};
+}

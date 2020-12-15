@@ -25,23 +25,10 @@ const show = (req, res) => {
     .catch(err => console.log("Error at Users#index", err))
 }
 
-// Create new User State
-const create = (req, res) => {
-    console.log(req.body)
-    db.user_benefit.findOrCreate({
-        where: {
-            benefitId: req.body.userBenefitData.id,
-            userId: req.body.userId
-        }
-    }).then(function (createdBenefit) {
-        res.json(createdBenefit)
-    })
-}
 
 
 
 module.exports = {
     index,
-    show,
-    create
+    show
 }

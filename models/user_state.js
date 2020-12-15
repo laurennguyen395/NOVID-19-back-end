@@ -14,8 +14,8 @@ module.exports = (sequelize, DataTypes) => {
     }
   };
   user_state.init({
-    user_id: DataTypes.INTEGER,
-    saved_state: DataTypes.STRING
+    userId: DataTypes.INTEGER,
+    savedState: DataTypes.STRING
   }, {
     sequelize,
     modelName: 'user_state',

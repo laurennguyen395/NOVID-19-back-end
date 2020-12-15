@@ -2,7 +2,8 @@ const express = require('express')
 const router = express.Router()
 const ctrl = require('../controllers')
 
-router.get('/', ctrl.user.index)
-router.get('/:id', ctrl.user.show)
+router.post('/', ctrl.userState.create)
+router.get('/:id', ctrl.userState.index)
+router.delete('/:id', ctrl.userState.destroy)
 
 module.exports = router

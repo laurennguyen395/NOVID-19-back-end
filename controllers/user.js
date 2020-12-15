@@ -25,26 +25,23 @@ const show = (req, res) => {
     .catch(err => console.log("Error at Users#index", err))
 }
 
-
-
-const update = (req, res) => {
-    db.user.update({
-        firstName: req.body.firstName,
-        lastName: req.body.lastName,
-        email: req.body.email,
-    }, {
+// Create new User State
+const create = (req, res) => {
+    console.log(req.body)
+    db.user_benefit.findOrCreate({
         where: {
-            id: req.params.id
+            benefitId: req.body.userBenefitData.id,
+            userId: req.body.userId
         }
-    }).then((updatedUser) => {
-        res.json({user: updatedUser})
+    }).then(function (createdBenefit) {
+        res.json(createdBenefit)
     })
-    .catch(err => console.log("Error at user#update", err))
 }
+
 
 
 module.exports = {
     index,
     show,
-    update,
+    create
 }

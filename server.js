@@ -48,4 +48,4 @@ app.use('/api/v1/user', routes.user)
 app.use('/api/v1/mystates', routes.userState)
 
 // connection
-app.listen(port, () => console.log(`Server is running on port ${port}`))
+app.listen(port, () => console.log(`Port ${port} runs for you master 🦠 `))

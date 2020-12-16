@@ -1,21 +1,5 @@
 const db = require('../models')
 
-// Find all states
-// const index = (req, res) => {
-//     db.user.findAll({
-//         where: {
-//             id: req.params.id
-//         },
-//         include: db.user_state
-//     }).then((foundStates) => {
-//         console.log('query complete')
-//         if (!foundStates) return res.json({
-//             message: 'No States in db'
-//         })
-//         res.json({ savedState: savedState })
-//     })
-//     .catch(err => console.log('error at userState#index', err))
-// }
 
 
 // Find user_ state relations
